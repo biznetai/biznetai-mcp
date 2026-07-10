@@ -1,17 +1,17 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.mapleai-team/biznetai-mcp",
+  "name": "io.github.biznetai/biznetai-mcp",
   "description": "Routes natural-language shopping queries to live merchant storefronts and returns normalized product and merchant results, for AI agents and shopping assistants.",
   "title": "BizNetAI",
   "version": "1.0.0",
   "repository": {
-    "url": "https://github.com/MapleAI-Team/biznetai-mcp",
+    "url": "https://github.com/biznetai/biznetai-mcp",
     "source": "github"
   },
   "remotes": [
     {
       "type": "streamable-http",
-      "url": "https://53kjdygpvvm6hnedc4g24nqy4q0whtlo.lambda-url.us-east-1.on.aws/mcp",
+      "url": "https://biznetaimcp.consumergenie.net/mcp",
       "headers": [
         {
           "name": "Authorization",

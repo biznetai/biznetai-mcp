@@ -16,7 +16,7 @@ calling tools.
 
 | | |
 |---|---|
-| **URL** | `https://53kjdygpvvm6hnedc4g24nqy4q0whtlo.lambda-url.us-east-1.on.aws/mcp` |
+| **URL** | `https://biznetaimcp.consumergenie.net/mcp` |
 | **Transport** | `streamable-http` |
 | **Auth** | Required — `Authorization: Bearer <api_key>` on every request |
 
@@ -56,7 +56,7 @@ Most clients speak stdio, so bridge through
       "command": "npx",
       "args": [
         "-y", "mcp-remote",
-        "https://53kjdygpvvm6hnedc4g24nqy4q0whtlo.lambda-url.us-east-1.on.aws/mcp",
+        "https://biznetaimcp.consumergenie.net/mcp",
         "--header", "Authorization:Bearer ${BIZNETAI_API_KEY}"
       ]
     }
@@ -67,7 +67,7 @@ Most clients speak stdio, so bridge through
 ### Raw HTTP
 
 ```bash
-BASE_URL="https://53kjdygpvvm6hnedc4g24nqy4q0whtlo.lambda-url.us-east-1.on.aws/mcp"
+BASE_URL="https://biznetaimcp.consumergenie.net/mcp"
 API_KEY="bnai_live_..."
 
 curl -X POST "$BASE_URL" \
