@@ -12,6 +12,20 @@ calling tools.
 
 ---
 
+## Merchant Coverage
+
+18,000+ live merchants and growing, across the US and Canada.
+
+Current focus verticals:
+
+`skincare` · `haircare` · `cosmetics` · `personal_care` · `sports_active_wear` · `clothing` · `accessories` · `fine_jewelry` · `fashion_jewelry` · `specialty_food` · `gourmet_food` · `food_and_beverage` · `home_decor` · `home_furnishings` · `candles_fragrance` · `wellness` · `luxury` · `electronics` · `consumer_goods` · `pet` · `baby_kids`
+
+Use `list_categories` for the authoritative, up-to-date list at query time — new verticals are added periodically.
+
+Use `find_merchants` for live merchant coverage — also updated periodically.
+
+---
+
 ## Endpoint
 
 | | |
@@ -81,47 +95,11 @@ curl -X POST "$BASE_URL" \
 
 ## Tools
 
-### `find_products`
-Search for products by matching your query to one of BizNetAI's curated product
-varieties (e.g. `"wireless headphones"`, `"vitamin c serum"`) and returning that
-variety's already-ranked top results. Call `list_product_varieties` first if you
-want to see upfront what's available for a country before searching.
 
-```
-query    str   required   Natural language product search query
-country  str   required   ISO country code (e.g. US, CA)
-limit    int   0          Page size (0 = server default)
-offset   int   0          Results to skip, for paging beyond the first page
-```
+### `list_categories`
+Return the full BizNetAI merchant category vocabulary. Useful for understanding what
+kinds of merchants are available before querying.
 
-Results are capped by how many products the matched variety has (usually around 50,
-sometimes fewer for a niche search) — `offset`/`limit` beyond that returns whatever's
-left, not an error. A query that doesn't match any known variety returns `[]`.
-
-Returns a list of normalized product objects:
-```json
-{
-  "product_id": "gid://shopify/Product/103382155290",
-  "title": "Vitamin C Brightening Serum",
-  "description": "...",
-  "price_min": 24.60,
-  "price_max": 24.60,
-  "currency": "USD",
-  "available": true,
-  "url": "https://merchant.com/products/vitamin-c-serum",
-  "image_url": "https://cdn.shopify.com/...",
-  "store_domain": "merchant.com",
-  "mcp_endpoint": "https://merchant.com/api/mcp",
-  "merchant_position": 0,
-  "relevance_score": 0.79
-}
-```
-
-`available` reflects whether at least one product variant was in stock as of the last
-catalog refresh (boolean only — exact stock counts aren't available from all merchant
-backends). `relevance_score` is a similarity score (higher is more relevant) — there's
-no cutoff applied, so you can use it yourself to judge what's a good enough match for
-your use case.
 
 ### `find_merchants`
 Find live merchants matching a query — useful when you want merchant identity before
@@ -132,6 +110,7 @@ query    str   required   Natural language search query
 country  str   required   ISO country code (e.g. US, CA)
 limit    int   0          Max merchants to return (0 = all live matches)
 ```
+
 
 ### `list_product_varieties`
 List the product varieties available for a country, with how many results each has.
@@ -154,9 +133,48 @@ Returns a list of variety objects:
 Varieties are country-specific — the same product type can exist under a
 differently-worded variety, or not at all, in a different country.
 
-### `list_categories`
-Return the full BizNetAI merchant category vocabulary. Useful for understanding what
-kinds of merchants are available before querying.
+
+### `find_products`
+Search for products by matching your query to one of BizNetAI's curated product
+varieties (e.g. `"wireless headphones"`, `"vitamin c serum"`) and returning that
+variety's already-ranked top results. Call `list_product_varieties` first if you
+want to see upfront what's available for a country before searching.
+
+```
+query    str   required   Natural language product search query
+country  str   required   ISO country code (e.g. US, CA)
+limit    int   0          Page size (0 = server default)
+offset   int   0          Results to skip, for paging beyond the first page
+```
+
+Results are capped by how many products the matched variety has (usually around 50,
+sometimes fewer for a niche search) — `offset`/`limit` beyond that returns whatever's
+left, not an error. A query that doesn't match any known variety returns `[]`.
+
+Returns a list of normalized product objects:
+```json
+{
+  "title": "Vitamin C Brightening Serum",
+  "description": "...",
+  "price_min": 24.60,
+  "price_max": 24.60,
+  "currency": "USD",
+  "available": true,
+  "url": "https://merchant.com/products/vitamin-c-serum",
+  "image_url": "https://cdn.shopify.com/...",
+  "store_domain": "merchant.com",
+  "mcp_endpoint": "https://merchant.com/api/mcp",
+  "merchant_position": 0,
+  "relevance_score": 0.79
+}
+```
+
+`available` reflects whether at least one product variant was in stock as of the last
+catalog refresh (boolean only — exact stock counts aren't available from all merchant
+backends). `relevance_score` is a similarity score (higher is more relevant) — there's
+no cutoff applied, so you can use it yourself to judge what's a good enough match for
+your use case.
+
 
 ---
 
