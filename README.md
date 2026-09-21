@@ -22,7 +22,7 @@ Current focus verticals:
 
 Use `list_categories` for the authoritative, up-to-date list at query time — new verticals are added periodically.
 
-Use `find_merchants` for live merchant coverage — also updated periodically.
+Use `find_merchants` for live merchant coverage, or `list_merchants` for the complete merchant directory (no liveness filtering) — both updated periodically.
 
 ---
 
@@ -109,6 +109,33 @@ doing a custom product lookup.
 query    str   required   Natural language search query
 country  str   required   ISO country code (e.g. US, CA)
 limit    int   0          Max merchants to return (0 = all live matches)
+```
+
+
+### `list_merchants`
+List every active merchant straight from the database — no liveness probing and no
+ranking, so the result is complete and the same from one call to the next. Use it when
+you need the merchant directory; use `find_merchants` when you need endpoints confirmed
+reachable right now (a merchant whose endpoint is slow to answer can be missing from a
+`find_merchants` result). Some listed endpoints may be temporarily unreachable.
+
+```
+country   str   required   ISO country code (e.g. US, CA)
+category  str   omit       One value from list_categories; omit for every category
+limit     int   0          Page size (0 = the server page cap, 10,000)
+offset    int   0          Skip this many merchants; combine with limit to page
+```
+
+Returns merchants sorted by `store_domain`:
+```json
+{
+  "store_domain": "naturium.com",
+  "store_url": "https://naturium.com",
+  "mcp_endpoint": "https://naturium.com/api/mcp",
+  "categories": ["skincare"],
+  "source_country": "US",
+  "last_seen_at": "2026-06-07T02:18:00Z"
+}
 ```
 
 
